@@ -1,6 +1,6 @@
 {
     "name": "obsidian-charts",
-    "version": "3.9.0",
+    "version": "3.9.0-zh.1",
     "description": "Simplified Chinese localization of Obsidian Charts 3.9.0",
     "main": "main.js",
     "scripts": {

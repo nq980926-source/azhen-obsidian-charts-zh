@@ -78,6 +78,18 @@ YAML 键名、图表类型值、代码块语言和 API 标识没有汉化，以�
 本版本使用与官方相同的插件 ID 和版本号。替换前应备份原
 `.obsidian/plugins/obsidian-charts/`，尤其是其中的 `data.json`。
 
+### BRAT
+
+BRAT 2.2.0 可识别本仓库的 `3.9.0-zh.1` Release。由于 SemVer 将
+`3.9.0-zh.1` 排在正式 `3.9.0` 之前，从官方 3.9.0 切换时：
+
+1. 在 BRAT 中添加仓库
+   `nq980926-source/azhen-obsidian-charts-zh`。
+2. 运行 BRAT 的“重新安装单个插件”命令并选择本仓库。
+3. 重新加载 Obsidian。
+
+普通“检查更新”不会执行这次降序版本替换。
+
 ## 构建
 
 ```bash
