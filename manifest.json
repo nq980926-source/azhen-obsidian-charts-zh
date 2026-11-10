@@ -1,9 +1,9 @@
 {
     "id": "obsidian-charts",
-    "name": "Charts",
+    "name": "Charts 简体中文",
     "version": "3.9.0",
     "minAppVersion": "0.12.7",
-    "description": "This Plugin lets you create Charts within Obsidian",
+    "description": "在 Obsidian 中创建交互式图表（基于官方 Charts 3.9.0 的简体中文版本）",
     "author": "phibr0",
     "authorUrl": "https://github.com/phibr0",
     "isDesktopOnly": false,

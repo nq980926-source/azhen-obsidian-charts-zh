@@ -4,16 +4,16 @@ import type { ChartPluginSettings } from "src/constants/settingsConstants";
 import type Renderer from "src/chartRenderer";
 
 export function generateInnerColors(colors: string[], alpha = 0.25) {
-    if(typeof alpha != 'number') throw "Provided alpha value is not a number"
+    if(typeof alpha != 'number') throw "提供的透明度不是数字"
     return colors.map((color: string) => chroma(color.trim()).alpha(alpha).hex());
 }
 
 export function renderError(error: any, el: HTMLElement) {
     const errorEl = el.createDiv({ cls: "chart-error" });
-    errorEl.createEl("b", { text: "Couldn't render Chart:" });
+    errorEl.createEl("b", { text: "无法渲染图表：" });
     errorEl.createEl("pre").createEl("code", { text: error.toString?.() ?? error });
     errorEl.createEl("hr");
-    errorEl.createEl("span").innerHTML = "You might also want to look for further Errors in the Console: Press <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>I</kbd> to open it.";
+    errorEl.createEl("span").innerHTML = "也可以打开开发者控制台查看其他错误：按 <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>I</kbd>。";
 }
 
 export function base64ToArrayBuffer(base64: string) {
@@ -31,7 +31,7 @@ export async function saveImageToVaultAndPaste(editor: Editor, app: App, rendere
     console.log("image converted")
     const file = await app.vault.createBinary(
         //@ts-ignore
-        await app.vault.getAvailablePathForAttachments(`Chart ${new Date().toDateString()}`, settings.imageSettings.format.split('/').last(), source),
+        await app.vault.getAvailablePathForAttachments(`图表 ${new Date().toLocaleDateString('zh-CN')}`, settings.imageSettings.format.split('/').last(), source),
         base64ToArrayBuffer(image)
     );
     console.log("Image saved")

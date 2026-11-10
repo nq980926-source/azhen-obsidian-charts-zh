@@ -1,15 +1,16 @@
 {
     "name": "obsidian-charts",
     "version": "3.9.0",
-    "description": "This Plugin lets you create Charts within Obsidian",
+    "description": "Simplified Chinese localization of Obsidian Charts 3.9.0",
     "main": "main.js",
     "scripts": {
         "dev": "node dev.config.mjs",
-        "build": "node release.config.mjs"
+        "build": "node release.config.mjs",
+        "typecheck": "svelte-check --tsconfig ./tsconfig.json && tsc --noEmit"
     },
     "keywords": [],
     "author": "phibr0",
-    "license": "MIT",
+    "license": "AGPL-3.0-only",
     "devDependencies": {
         "@rollup/plugin-commonjs": "^15.1.0",
         "@rollup/plugin-node-resolve": "^9.0.0",

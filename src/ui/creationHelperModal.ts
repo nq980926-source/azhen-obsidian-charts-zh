@@ -16,7 +16,7 @@ export class CreationHelperModal extends Modal {
 	}
 
 	onOpen() {
-		let { contentEl, view, settings, renderer} = this;
+		let { contentEl, view, renderer} = this;
 		contentEl.empty();
 		const modal = new HelperModal({target: contentEl, props: {editor: view.editor, renderer}});
 		modal.$on('close', () => this.close());

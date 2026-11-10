@@ -1,14 +1,9 @@
 import {
   DEFAULT_SETTINGS,
-  ImageOptions,
 } from './../constants/settingsConstants';
 import {
   App,
-  MarkdownRenderer,
-  Modal,
-  Notice,
   PluginSettingTab,
-  request,
   Setting,
 } from 'obsidian';
 import type ChartPlugin from '../main';
@@ -33,14 +28,14 @@ export class ChartSettingTab extends PluginSettingTab {
 
     containerEl.empty();
 
-    containerEl.createEl('h2', { text: 'Settings - Charts' });
+    containerEl.createEl('h2', { text: '图表设置' });
 
-    containerEl.createEl('h3', { text: 'General' });
+    containerEl.createEl('h3', { text: '常规' });
 
     new Setting(containerEl)
-      .setName('Show Button in Context Menu')
+      .setName('在右键菜单中显示按钮')
       .setDesc(
-        'If enabled, you will se a Button in your Editor Context Menu to open the Chart Creator.'
+        '启用后，编辑器右键菜单中会显示打开图表创建器的按钮。'
       )
       .addToggle((cb) => {
         cb.setValue(this.plugin.settings.contextMenu).onChange(
@@ -51,34 +46,34 @@ export class ChartSettingTab extends PluginSettingTab {
         );
       });
     new Setting(containerEl)
-      .setName('Donate')
-      .setDesc(
-        'If you like this Plugin, consider donating to support continued development:'
-      )
+      .setName('支持作者')
+      .setDesc('如果这个插件对你有帮助，可以考虑支持后续开发：')
       .addButton((bt) => {
-        bt.buttonEl.outerHTML = `<a href="https://ko-fi.com/phibr0"><img src="https://uploads-ssl.webflow.com/5c14e387dab576fe667689cf/61e11e22d8ff4a5b4a1b3346_Supportbutton-1.png"></a>`;
+        bt
+          .setButtonText('支持作者')
+          .onClick(() => window.open('https://ko-fi.com/phibr0', '_blank'));
       });
 
     containerEl.createEl('h3', {
-      text: 'Colors',
+      text: '颜色',
       attr: {
         style: 'margin-bottom: 0',
       },
     });
     const desc = containerEl.createEl('p', { cls: 'setting-item-description' });
     desc.append(
-      'Set the Colors for your Charts. This will set the border Color and the inner Color will be the same, but with less opacity. This ensures better compatibility with Dark and Light Mode. ',
-      'You can use any ',
+      '设置图表使用的颜色。边框使用所选颜色，填充色使用相同颜色但降低不透明度，以更好地兼容深色和浅色主题。',
+      '你可以使用任何',
       desc.createEl('a', {
         href: 'https://www.w3schools.com/cssref/css_colors.asp',
-        text: 'valid CSS Color.',
+        text: '有效的 CSS 颜色。',
       })
     );
 
     new Setting(containerEl)
-      .setName('Enable Theme Colors')
+      .setName('启用主题颜色')
       .setDesc(
-        'If your Obsidian Theme (or snippet) provides Colors you can use them instead.'
+        '如果 Obsidian 主题或 CSS 片段提供图表颜色，可以改用这些颜色。'
       )
       .addToggle((cb) => {
         cb.setValue(plugin.settings.themeable).onChange(async (value) => {
@@ -92,14 +87,12 @@ export class ChartSettingTab extends PluginSettingTab {
       plugin.settings.colors.forEach((color, idx) => {
         const nameEl = document.createDocumentFragment();
         nameEl.createSpan({ text: '●', attr: { style: `color: ${color}` } });
-        nameEl.appendText(` Color #${idx + 1}`);
+        nameEl.appendText(` 颜色 #${idx + 1}`);
         new Setting(containerEl)
           .setName(nameEl)
-          .setDesc(
-            'This will be the border Color used in the Charts you create.'
-          )
+          .setDesc('创建图表时使用此颜色作为边框颜色。')
           .addButton((btn) => {
-            btn.setButtonText('Change Color');
+            btn.setButtonText('更改颜色');
             new Picker({
               parent: btn.buttonEl,
               onDone: async (color) => {
@@ -115,7 +108,7 @@ export class ChartSettingTab extends PluginSettingTab {
           .addExtraButton((btn) => {
             btn
               .setIcon('trash')
-              .setTooltip('Remove')
+              .setTooltip('删除')
               .onClick(async () => {
                 this.plugin.settings.colors.remove(color);
                 await this.plugin.saveSettings();
@@ -128,7 +121,7 @@ export class ChartSettingTab extends PluginSettingTab {
           .addExtraButton((btn) => {
             btn
               .setIcon('reset')
-              .setTooltip('Reset to default')
+              .setTooltip('恢复默认')
               .onClick(async () => {
                 this.plugin.settings.colors[idx] =
                   DEFAULT_SETTINGS.colors[idx] ?? '#ffffff';
@@ -139,7 +132,7 @@ export class ChartSettingTab extends PluginSettingTab {
       });
 
       new Setting(containerEl).addButton((btn) => {
-        btn.setButtonText('Add Color').onClick(async () => {
+        btn.setButtonText('添加颜色').onClick(async () => {
           this.plugin.settings.colors.push('#ffffff');
           await this.plugin.saveSettings();
           this.display();
@@ -147,19 +140,17 @@ export class ChartSettingTab extends PluginSettingTab {
       });
     }
 
-    containerEl.createEl('h3', { text: 'Chart to Image Converter' });
+    containerEl.createEl('h3', { text: '图表转图片' });
 
     const detailEl = containerEl.createEl('details');
-    detailEl.createEl('summary', { text: 'How to use' });
-    detailEl.createEl('img', {
-      attr: {
-        src: 'https://media.discordapp.net/attachments/855181471643861002/897811615037136966/charttoimage.gif',
-      },
+    detailEl.createEl('summary', { text: '使用方法' });
+    detailEl.createEl('p', {
+      text: '在 Markdown 中选择完整的 chart 代码块，然后运行“从图表创建图片”命令。',
     });
 
     new Setting(containerEl)
-      .setName('Image Format')
-      .setDesc('The Format to be used, when generating a Image from a Chart.')
+      .setName('图片格式')
+      .setDesc('从图表生成图片时使用的文件格式。')
       .addDropdown((cb) => {
         cb.addOptions({
           'image/jpeg': 'jpeg',
@@ -173,8 +164,8 @@ export class ChartSettingTab extends PluginSettingTab {
         });
       });
     new Setting(containerEl)
-      .setName('Image Quality')
-      .setDesc('If using a lossy format, set the Image Quality.')
+      .setName('图片质量')
+      .setDesc('使用有损格式时，设置生成图片的质量。')
       .addSlider((cb) => {
         cb.setDynamicTooltip()
           .setLimits(0.01, 1, 0.01)

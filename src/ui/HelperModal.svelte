@@ -72,34 +72,34 @@ bestFitNumber: ${bestFitNumber}`;
 </script>
 
 <div class="chart-modal">
-  <h3>Create a new Chart</h3>
+  <h3>创建新图表</h3>
   <div class="modalColumn">
     <div>
       <table style="width:100%">
         <tr>
           <td class="desc"
-            ><p class="mainDesc">Chart Type</p>
-            <p class="subDesc">Choose a Chart Type</p></td
+            ><p class="mainDesc">图表类型</p>
+            <p class="subDesc">选择图表类型</p></td
           ><td class="controlElement"
             ><select
-              name="Chart Types"
+              name="图表类型"
               id="chart-types"
               class="dropdown"
               bind:value={chartType}
             >
-              <option value="bar">Bar</option>
-              <option value="line">Line</option>
-              <option value="pie">Pie</option>
-              <option value="doughnut">Doughnut</option>
-              <option value="radar">Radar</option>
-              <option value="polarArea">Polar Area</option>
+              <option value="bar">柱状图</option>
+              <option value="line">折线图</option>
+              <option value="pie">饼图</option>
+              <option value="doughnut">环形图</option>
+              <option value="radar">雷达图</option>
+              <option value="polarArea">极坐标面积图</option>
             </select></td
           >
         </tr>
         <tr>
           <td class="desc"
-            ><p class="mainDesc">Smoothness</p>
-            <p class="subDesc">Changes the smoothness of the Chart</p></td
+            ><p class="mainDesc">平滑度</p>
+            <p class="subDesc">调整图表曲线的平滑程度</p></td
           ><td class="controlElement"
             ><input
               type="range"
@@ -112,8 +112,8 @@ bestFitNumber: ${bestFitNumber}`;
         </tr>
         <tr>
           <td class="desc"
-            ><p class="mainDesc">Width</p>
-            <p class="subDesc">Changes the horizontal width</p></td
+            ><p class="mainDesc">宽度</p>
+            <p class="subDesc">调整图表的横向宽度</p></td
           ><td class="controlElement"
             ><input
               type="range"
@@ -126,8 +126,8 @@ bestFitNumber: ${bestFitNumber}`;
         </tr>
         <tr>
           <td class="desc"
-            ><p class="mainDesc">Fill</p>
-            <p class="subDesc">Fill the underside of the Chart</p></td
+            ><p class="mainDesc">填充</p>
+            <p class="subDesc">填充图表下方区域</p></td
           ><td class="controlElement"
             ><input
               type="checkbox"
@@ -139,8 +139,8 @@ bestFitNumber: ${bestFitNumber}`;
         </tr>
         <tr>
           <td class="desc"
-            ><p class="mainDesc">Distinct Colors</p>
-            <p class="subDesc">Use distinct Colors for each Label</p></td
+            ><p class="mainDesc">独立颜色</p>
+            <p class="subDesc">为每个标签使用不同颜色</p></td
           ><td class="controlElement"
             ><input
               type="checkbox"
@@ -152,8 +152,8 @@ bestFitNumber: ${bestFitNumber}`;
         </tr>
         <tr>
           <td class="desc"
-            ><p class="mainDesc">Start at Zero</p>
-            <p class="subDesc">Don't cut the graph at the bottom</p></td
+            ><p class="mainDesc">从零开始</p>
+            <p class="subDesc">不要截断图表底部</p></td
           ><td class="controlElement"
             ><input
               type="checkbox"
@@ -168,13 +168,13 @@ bestFitNumber: ${bestFitNumber}`;
       <table style="width:100%">
         <tr>
           <td class="desc"
-            ><p class="mainDesc">X Axis</p>
-            <p class="subDesc">Set Labels (Comma seperated)</p></td
+            ><p class="mainDesc">X 轴</p>
+            <p class="subDesc">设置标签（以逗号分隔）</p></td
           >
           <td class="controlElement">
             <input
               type="text"
-              placeholder="Monday, Tuesday, ..."
+              placeholder="周一, 周二, ..."
               bind:value={labels}
             /><br />
           </td>
@@ -182,14 +182,14 @@ bestFitNumber: ${bestFitNumber}`;
       </table>
       <hr />
       <table style="width:100%">
-        {#each data as d, i}
+        {#each data as d}
           <tr>
             <td class="desc"
-              ><p class="mainDesc">Y Axis</p>
-              <p class="subDesc">Set Data Fields (Comma seperated)</p></td
+              ><p class="mainDesc">Y 轴</p>
+              <p class="subDesc">设置数据序列（以逗号分隔）</p></td
             >
             <td class="controlElement">
-              <input type="text" placeholder="Name" bind:value={d.dataTitle} />
+              <input type="text" placeholder="名称" bind:value={d.dataTitle} />
               <br />
               <input
                 type="text"
@@ -203,18 +203,18 @@ bestFitNumber: ${bestFitNumber}`;
         <div class="addMoreButtonContainer">
           <button
             on:click={() => (data = [...data, { data: "", dataTitle: "" }])}
-            >Add more</button
+            >添加序列</button
           >
         </div>
       </table>
       <hr />
-      <CollapsibleSection headerText={'Line of Best Fit (Line chart only)'} >
+      <CollapsibleSection headerText={'最佳拟合线（仅折线图）'} >
         <hr>
       <table style="width:100%">
         <tr>
           <td class="desc"
-          ><p class="mainDesc">Line of Best Fit</p>
-            <p class="subDesc">Create a line of best fit</p></td
+          ><p class="mainDesc">最佳拟合线</p>
+            <p class="subDesc">创建最佳拟合线</p></td
           ><td class="controlElement"
         ><input
                 type="checkbox"
@@ -226,8 +226,8 @@ bestFitNumber: ${bestFitNumber}`;
         </tr>
         <tr>
           <td class="desc"
-          ><p class="mainDesc">Best Fit Line ID</p>
-            <p class="subDesc">The line ID used to create the line of best fit</p></td
+          ><p class="mainDesc">拟合线序列编号</p>
+            <p class="subDesc">用于计算最佳拟合线的数据序列编号</p></td
           ><td class="controlElement"
         ><input
                 type="text"
@@ -238,12 +238,12 @@ bestFitNumber: ${bestFitNumber}`;
         </tr>
         <tr>
           <td class="desc"
-          ><p class="mainDesc">Line of Best Fit Title</p>
-            <p class="subDesc">The title for the line of best fit</p></td
+          ><p class="mainDesc">最佳拟合线标题</p>
+            <p class="subDesc">设置最佳拟合线显示的标题</p></td
           ><td class="controlElement">
           <input
                   type="text"
-                  placeholder="Line of Best Fit"
+                  placeholder="最佳拟合线"
                   style="width: 96px; height: 32px"
                   bind:value={bestFitTitle}
           /><br />
@@ -258,7 +258,7 @@ bestFitNumber: ${bestFitNumber}`;
   <hr />
 </div>
 <div style="display: flex; justify-content: center; align-items: center;">
-  <button class="mod-cta" on:click={insertChart}>Insert Chart</button>
+  <button class="mod-cta" on:click={insertChart}>插入图表</button>
 </div>
 
 <style>

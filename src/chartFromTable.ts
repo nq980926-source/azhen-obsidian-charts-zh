@@ -23,7 +23,7 @@ export function generateTableData(table: string, layout: 'columns' | 'rows', sel
     try {
         fields = Extractor.extractObject(table, layout, false);
     } catch (error) {
-        new Notice('Table malformed')
+        new Notice('表格格式无效')
         throw error;
     }
     const labels = Object.keys(Object.values(fields)[0]);

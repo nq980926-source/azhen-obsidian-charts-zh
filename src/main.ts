@@ -38,7 +38,7 @@ export default class ChartPlugin extends Plugin {
     }
     if (!data.id) {
       if (!data || !data.type || !data.labels || !data.series) {
-        renderError('Missing type, labels or series', el);
+        renderError('缺少 type、labels 或 series', el);
         return;
       }
     }
@@ -75,7 +75,7 @@ export default class ChartPlugin extends Plugin {
       if (data.bestFitTitle != undefined && data.bestFitTitle != 'undefined') {
         var title = String(data.bestFitTitle);
       } else {
-        var title = 'Line of Best Fit';
+        var title = '最佳拟合线';
       }
       // Create line
       data.series.push({
@@ -110,7 +110,7 @@ export default class ChartPlugin extends Plugin {
 
     this.addCommand({
       id: 'creation-helper',
-      name: 'Insert new Chart',
+      name: '插入新图表',
       checkCallback: (checking: boolean) => {
         let leaf = this.app.workspace.activeLeaf;
         if (leaf.view instanceof MarkdownView) {
@@ -130,7 +130,7 @@ export default class ChartPlugin extends Plugin {
 
     this.addCommand({
       id: 'chart-from-table-column',
-      name: 'Create Chart from Table (Column oriented Layout)',
+      name: '从表格创建图表（按列）',
       editorCheckCallback: (checking: boolean, editor: Editor, view: View) => {
         let selection = editor.getSelection();
         if (
@@ -149,7 +149,7 @@ export default class ChartPlugin extends Plugin {
 
     this.addCommand({
       id: 'chart-from-table-row',
-      name: 'Create Chart from Table (Row oriented Layout)',
+      name: '从表格创建图表（按行）',
       editorCheckCallback: (checking: boolean, editor: Editor, view: View) => {
         if (
           view instanceof MarkdownView &&
@@ -167,7 +167,7 @@ export default class ChartPlugin extends Plugin {
 
     this.addCommand({
       id: 'chart-to-svg',
-      name: 'Create Image from Chart',
+      name: '从图表创建图片',
       editorCheckCallback: (checking: boolean, editor: Editor, view: View) => {
         if (
           view instanceof MarkdownView &&
@@ -175,7 +175,7 @@ export default class ChartPlugin extends Plugin {
           editor.getSelection().endsWith('```')
         ) {
           if (!checking) {
-            new Notice('Rendering Chart...');
+            new Notice('正在渲染图表…');
             saveImageToVaultAndPaste(
               editor,
               this.app,
@@ -206,7 +206,7 @@ export default class ChartPlugin extends Plugin {
           if (view && this.settings.contextMenu) {
             menu.addItem((item) => {
               item
-                .setTitle('Insert Chart')
+                .setTitle('插入图表')
                 .setIcon('chart')
                 .onClick((_) => {
                   new CreationHelperModal(
